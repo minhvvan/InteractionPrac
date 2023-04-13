@@ -70,4 +70,3 @@ void AInteractDoor::OnOverlapEnd(UPrimitiveComponent* OverlappedComp, AActor* Ot
 	Widget->SetVisibility(false);
 	IsOverlapped = false;
 }
-

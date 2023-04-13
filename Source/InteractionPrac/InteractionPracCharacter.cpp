@@ -9,6 +9,7 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
+#include "InteractBroom.h"
 
 
 //////////////////////////////////////////////////////////////////////////
@@ -47,6 +48,8 @@ AInteractionPracCharacter::AInteractionPracCharacter()
 	FollowCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName); // Attach the camera to the end of the boom and let the boom adjust to match the controller orientation
 	FollowCamera->bUsePawnControlRotation = false; // Camera does not rotate relative to arm
 
+
+	IsAttach = false;
 	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
 	// are set in the derived blueprint asset named ThirdPersonCharacter (to avoid direct content references in C++)
 }
@@ -83,9 +86,10 @@ void AInteractionPracCharacter::SetupPlayerInputComponent(class UInputComponent*
 
 		//Looking
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &AInteractionPracCharacter::Look);
-
+		
+		//Fly
+		EnhancedInputComponent->BindAction(FlyAction, ETriggerEvent::Triggered, this, &AInteractionPracCharacter::Fly);
 	}
-
 }
 
 void AInteractionPracCharacter::Move(const FInputActionValue& Value)
@@ -124,6 +128,18 @@ void AInteractionPracCharacter::Look(const FInputActionValue& Value)
 	}
 }
 
+void AInteractionPracCharacter::Fly(const FInputActionValue& Value)
+{
+		UE_LOG(LogTemp, Warning, TEXT("FLY"));
+	if (GetCharacterMovement()->MovementMode == EMovementMode::MOVE_Flying)
+	{
+		// input is a Vector2D
+		float MovementValue = Value.Get<float>();
 
-
-
+		if (Controller != nullptr)
+		{
+			// add movement 
+			AddMovementInput(GetActorUpVector(), MovementValue);
+		}
+	}
+}
