@@ -66,7 +66,6 @@ void AInteractDoor::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* 
 
 void AInteractDoor::OnOverlapEnd(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
 {
-	UE_LOG(LogTemp, Warning, TEXT("End"));
 	Widget->SetVisibility(false);
 	IsOverlapped = false;
 }

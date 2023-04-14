@@ -130,7 +130,6 @@ void AInteractionPracCharacter::Look(const FInputActionValue& Value)
 
 void AInteractionPracCharacter::Fly(const FInputActionValue& Value)
 {
-		UE_LOG(LogTemp, Warning, TEXT("FLY"));
 	if (GetCharacterMovement()->MovementMode == EMovementMode::MOVE_Flying)
 	{
 		// input is a Vector2D
