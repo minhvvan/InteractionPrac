@@ -39,6 +39,23 @@ void AInteractBroom::Tick(float DeltaSeconds)
 				Character->GetCharacterMovement()->SetMovementMode(EMovementMode::MOVE_Flying);
 			}
 		}
+		else {
+			if (Player)
+			{
+				//GetOwner()
+				auto Character = Cast<AInteractionPracCharacter>(GetAttachParentActor());
+				if (Character)
+				{
+					UE_LOG(LogTemp, Warning, TEXT("Character Valid"));
+					Character->GetCharacterMovement()->SetMovementMode(EMovementMode::MOVE_Falling);
+				
+					Mesh->SetCollisionProfileName(TEXT("BlockAllDynamic"));
+					Widget->SetActive(true);
+					Widget->SetVisibility(true);
+				}
+				DetachFromActor(FDetachmentTransformRules::KeepWorldTransform);
+			}
+		}
 	}
 }
 
@@ -57,5 +74,5 @@ void AInteractBroom::OnOverlapEnd(UPrimitiveComponent* OverlappedComp, AActor* O
 {
 	Super::OnOverlapEnd(OverlappedComp, OtherActor, OtherComp, OtherBodyIndex);
 
-	Player = nullptr;
+	//Player = nullptr;
 }

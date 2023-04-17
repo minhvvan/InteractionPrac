@@ -130,7 +130,7 @@ void AInteractionPracCharacter::Look(const FInputActionValue& Value)
 
 void AInteractionPracCharacter::Fly(const FInputActionValue& Value)
 {
-	if (GetCharacterMovement()->MovementMode == EMovementMode::MOVE_Flying)
+	if (GetCharacterMovement()->MovementMode == EMovementMode::MOVE_Flying && IsAttach)
 	{
 		// input is a Vector2D
 		float MovementValue = Value.Get<float>();
